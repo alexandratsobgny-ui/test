@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patient Intake Form — Behavioral Health Services</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal-50: #E1F5EE; --teal-100: #9FE1CB; --teal-200: #5DCAA5;
+    --teal-400: #1D9E75; --teal-600: #0F6E56; --teal-800: #085041; --teal-900: #04342C;
+    --gray-50: #F1EFE8; --gray-100: #D3D1C7; --gray-200: #B4B2A9;
+    --gray-400: #888780; --gray-600: #5F5E5A; --gray-800: #444441; --gray-900: #2C2C2A;
+    --blue-50: #E6F1FB; --blue-800: #0C447C; --blue-600: #185FA5;
+    --red-50: #FCEBEB; --red-600: #A32D2D; --red-200: #F09595;
+    --amber-50: #FAEEDA; --amber-600: #854F0B; --amber-800: #633806;
+    --font: 'DM Sans', sans-serif;
+    --serif: 'DM Serif Display', serif;
+    --radius: 10px;
+    --radius-lg: 16px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    --border: 1px solid #E2E0D8;
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --text: #2C2C2A;
+    --muted: #5F5E5A;
+    --accent: #0F6E56;
+    --accent-light: #E1F5EE;
+    --accent-hover: #085041;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--teal-800);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(4,52,44,0.18);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .header-logo {
+    width: 38px; height: 38px;
+    background: var(--teal-200);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: var(--teal-900);
+  }
+  .header-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: #fff;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .header-sub {
+    font-size: 11px;
+    color: var(--teal-100);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .header-meta {
+    display: flex; gap: 20px; align-items: center;
+  }
+  .meta-badge {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: var(--teal-100);
+  }
+  .meta-badge strong { color: #fff; }
+
+  /* PROGRESS BAR */
+  .progress-bar-wrap {
+    background: var(--teal-900);
+    padding: 10px 32px;
+  }
+  .progress-track {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .progress-steps {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+  .progress-step {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .progress-step.done { background: var(--teal-200); }
+  .progress-step.active { background: #fff; }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--teal-100);
+    gap: 4px;
+  }
+  .progress-label { flex: 1; text-align: center; }
+
+  /* LAYOUT */
+  .shell {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 32px 80px;
+  }
+
+  /* SECTION CARD */
+  .section-card {
+    background: var(--surface);
+    border: var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #EEECEA;
+  }
+  .section-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    font-size: 17px; flex-shrink: 0;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .section-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .section-badge {
+    margin-left: auto;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .badge-required { background: var(--red-50); color: var(--red-600); }
+  .badge-staff { background: var(--amber-50); color: var(--amber-600); }
+  .badge-optional { background: var(--gray-50); color: var(--gray-600); }
+  .badge-auto { background: var(--blue-50); color: var(--blue-600); }
+
+  /* FORM ELEMENTS */
+  .fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .fields.single { grid-template-columns: 1fr; }
+  .fields.triple { grid-template-columns: 1fr 1fr 1fr; }
+  .field-full { grid-column: 1 / -1; }
+
+  .field-group { display: flex; flex-direction: column; gap: 5px; }
+  .field-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-800);
+  }
+  .field-label .req { color: #C0392B; margin-left: 2px; }
+  .field-label .sensitive-tag {
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 10px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: #FFF3E0;
+    color: #E65100;
+    font-weight: 500;
+    vertical-align: middle;
+  }
+  .field-hint { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  input[type="text"], input[type="date"], input[type="tel"], input[type="email"],
+  input[type="number"], select, textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #D8D6CE;
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 14px;
+    color: var(--text);
+    background: #FAFAF8;
+    transition: border 0.18s, box-shadow 0.18s;
+    outline: none;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(15,110,86,0.1);
+    background: #fff;
+  }
+  input[type="date"] { cursor: pointer; }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px; }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+  .radio-group, .check-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .radio-pill, .check-pill {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid #D8D6CE;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    background: #FAFAF8;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .radio-pill:hover, .check-pill:hover { border-color: var(--accent); background: var(--accent-light); }
+  .radio-pill input, .check-pill input { margin: 0; accent-color: var(--accent); }
+
+  /* SENSITIVE SECTION */
+  .sensitive-notice {
+    background: #FFF8E1;
+    border: 1px solid #FFE082;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #795548;
+    margin-bottom: 18px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .sensitive-notice svg { flex-shrink: 0; margin-top: 1px; }
+
+  /* UPLOAD BOX */
+  .upload-box {
+    border: 2px dashed #C8C6BE;
+    border-radius: 10px;
+    padding: 22px;
+    text-align: center;
+    background: #FAFAF8;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .upload-box:hover { border-color: var(--accent); background: var(--accent-light); }
+  .upload-box .upload-icon { font-size: 28px; color: var(--accent); margin-bottom: 8px; }
+  .upload-box .upload-label { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+  .upload-box .upload-hint { font-size: 11px; color: var(--muted); }
+  .upload-box input[type="file"] { display: none; }
+
+  .camera-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--accent-light);
+    border: 1px solid var(--teal-200);
+    color: var(--accent-hover);
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-family: var(--font);
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .camera-btn:hover { background: var(--teal-100); }
+
+  /* STAFF SECTION */
+  .staff-section {
+    background: #FFFBF0;
+    border: 1px solid #FFE082;
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .staff-section .section-icon { background: #FFF3E0; color: #E65100; }
+
+  /* CARE REGION */
+  .care-region-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .region-card {
+    border: 1px solid #D8D6CE;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #FAFAF8;
+  }
+  .region-card:hover { border-color: var(--accent); background: var(--accent-light); }
+  .region-card.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px rgba(15,110,86,0.15); }
+  .region-card input { display: none; }
+  .region-label { font-size: 13px; font-weight: 500; color: var(--text); }
+  .region-id { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .region-team { font-size: 11px; color: var(--accent); margin-top: 4px; font-weight: 500; }
+
+  /* TEAM CHECKER */
+  .team-checker {
+    background: var(--blue-50);
+    border: 1px solid #B5D4F4;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .team-checker-label { font-size: 12px; color: var(--blue-600); }
+  .team-checker-val { font-size: 15px; font-weight: 600; color: var(--blue-800); }
+
+  /* CERTIFY */
+  .certify-box {
+    background: #F0FBF6;
+    border: 1px solid var(--teal-200);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .certify-check { display: flex; gap: 10px; align-items: flex-start; }
+  .certify-check input { margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
+  .certify-text { font-size: 13px; color: var(--gray-800); line-height: 1.6; }
+
+  /* SUBMIT */
+  .submit-area {
+    display: flex; align-items: center; gap: 16px;
+    padding: 24px 0 0;
+  }
+  .btn-submit {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 13px 32px;
+    border-radius: 10px;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-submit:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(15,110,86,0.25); }
+  .btn-submit:active { transform: translateY(0); }
+  .submit-note { font-size: 12px; color: var(--muted); flex: 1; }
+
+  /* MAILBOX NOTICE */
+  .mailbox-notice {
+    background: var(--blue-50);
+    border: 1px solid #B5D4F4;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--blue-600);
+  }
+  .mailbox-notice strong { color: var(--blue-800); }
+
+  /* PHOTO PREVIEW */
+  .photo-preview {
+    display: none;
+    width: 100%; max-width: 240px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 2px solid var(--teal-200);
+  }
+  video#camera-feed { display: none; width: 100%; max-width: 240px; border-radius: 8px; margin-top: 10px; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid #EEECEA; margin: 20px 0; }
+
+  /* HIPAA BANNER */
+  .hipaa-bar {
+    background: var(--teal-900);
+    color: var(--teal-100);
+    text-align: center;
+    font-size: 11px;
+    padding: 6px 16px;
+    letter-spacing: 0.03em;
+  }
+  .hipaa-bar strong { color: var(--teal-100); }
+
+  /* SUBMISSION ID BANNER */
+  .submission-id-bar {
+    background: var(--surface);
+    border: var(--border);
+    border-radius: var(--radius);
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--shadow);
+  }
+  .sid-label { font-size: 12px; color: var(--muted); }
+  .sid-val { font-size: 15px; font-weight: 600; color: var(--accent); font-family: monospace; }
+  .sid-status { margin-left: auto; font-size: 12px; background: var(--amber-50); color: var(--amber-600); padding: 3px 8px; border-radius: 4px; font-weight: 500; }
+
+  @media (max-width: 640px) {
+    .shell { padding: 16px 16px 60px; }
+    .header-inner { padding: 12px 16px; }
+    .progress-bar-wrap { padding: 8px 16px; }
+    .section-card, .staff-section { padding: 20px 18px; }
+    .fields { grid-template-columns: 1fr; }
+    .fields.triple { grid-template-columns: 1fr 1fr; }
+    .care-region-grid { grid-template-columns: 1fr 1fr; }
+    .header-meta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hipaa-bar">
+  🔒 &nbsp;This form is HIPAA-compliant. All information is encrypted and transmitted securely. For emergency services, call 911.
+</div>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-logo">&#9829;</div>
+      <div>
+        <div class="header-title">Behavioral Health Services</div>
+        <div class="header-sub">New Patient Intake — Confidential</div>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div class="meta-badge">Submission ID: <strong id="sub-id-header">—</strong></div>
+      <div class="meta-badge">Team: <strong id="team-id-header">—</strong></div>
+    </div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-track">
+      <div class="progress-steps">
+        <div class="progress-step active" id="ps1"></div>
+        <div class="progress-step" id="ps2"></div>
+        <div class="progress-step" id="ps3"></div>
+        <div class="progress-step" id="ps4"></div>
+        <div class="progress-step" id="ps5"></div>
+        <div class="progress-step" id="ps6"></div>
+      </div>
+      <div class="progress-labels">
+        <div class="progress-label">Personal</div>
+        <div class="progress-label">Health</div>
+        <div class="progress-label">Substances</div>
+        <div class="progress-label">Legal &amp; Social</div>
+        <div class="progress-label">Documents</div>
+        <div class="progress-label">Submit</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+
+  <!-- SUBMISSION META -->
+  <div class="submission-id-bar">
+    <div>
+      <div class="sid-label">Submission ID</div>
+      <div class="sid-val" id="sub-id-display">—</div>
+    </div>
+    <div>
+      <div class="sid-label">Date</div>
+      <div class="sid-val" id="form-date">—</div>
+    </div>
+    <div>
+      <div class="sid-label">Care Region / Team</div>
+      <div class="sid-val" id="care-team-display">—</div>
+    </div>
+    <div class="sid-status">New Submission</div>
+  </div>
+
+  <form id="intake-form" novalidate>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 1 — PERSONAL INFORMATION
+  ═══════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec1">
+    <div class="section-header">
+      <div class="section-icon">👤</div>
+      <div>
+        <div class="section-title">Personal Information</div>
+        <div class="section-desc">Basic demographic details for your patient record</div>
+      </div>
+      <span class="section-badge badge-required">Required</span>
+    </div>
+
+    <div class="fields">
+      <div class="field-group">
+        <label class="field-label">First Name <span class="req">*</span></label>
+        <input type="text" name="first_name" placeholder="First name" required>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Last Name <span class="req">*</span></label>
+        <input type="text" name="last_name" placeholder="Last name" required>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Middle Name</label>
+        <input type="text" name="middle_name" placeholder="Middle name (optional)">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Date of Birth <span class="req">*</span></label>
+        <input type="date" name="dob" required>
+      </div>
+      <div class="field-group">
+        <label class="field-label">
+          Social Security Number (SSN) <span class="req">*</span>
+          <span class="sensitive-tag">SENSITIVE</span>
+        </label>
+        <input type="text" name="ssn" placeholder="XXX-XX-XXXX" maxlength="11"
+          oninput="formatSSN(this)" required>
+        <div class="field-hint">Encrypted at rest. Used for insurance verification only.</div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Phone Number <span class="req">*</span></label>
+        <input type="tel" name="phone" placeholder="(000) 000-0000" required>
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Home Address <span class="req">*</span></label>
+        <input type="text" name="address_street" placeholder="Street address" required style="margin-bottom:8px">
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px">
+          <input type="text" name="address_city" placeholder="City" required>
+          <input type="text" name="address_state" placeholder="State">
+          <input type="text" name="address_zip" placeholder="ZIP">
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="fields">
+      <div class="field-group">
+        <label class="field-label">
+          Religion / Faith <span class="sensitive-tag">SENSITIVE</span>
+        </label>
+        <select name="religion">
+          <option value="">Select or leave blank</option>
+          <option>Christian — Catholic</option>
+          <option>Christian — Protestant</option>
+          <option>Christian — Other</option>
+          <option>Jewish</option>
+          <option>Muslim</option>
+          <option>Hindu</option>
+          <option>Buddhist</option>
+          <option>Spiritual (non-religious)</option>
+          <option>No religious affiliation</option>
+          <option>Prefer not to say</option>
+          <option>Other</option>
+        </select>
+        <div class="field-hint">Optional. Used to respect cultural/spiritual needs in care planning.</div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">
+          Sexual Orientation <span class="sensitive-tag">SENSITIVE</span>
+        </label>
+        <select name="sexual_orientation">
+          <option value="">Select or prefer not to say</option>
+          <option>Straight / Heterosexual</option>
+          <option>Gay or Lesbian</option>
+          <option>Bisexual</option>
+          <option>Queer</option>
+          <option>Asexual</option>
+          <option>Pansexual</option>
+          <option>Prefer to self-describe</option>
+          <option>Prefer not to say</option>
+        </select>
+        <div class="field-hint">Optional. Collected for inclusive care planning.</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="fields">
+      <div class="field-group">
+        <label class="field-label">Highest Level of Education <span class="req">*</span></label>
+        <select name="education" required>
+          <option value="">Select level</option>
+          <option>No formal education</option>
+          <option>Some primary school</option>
+          <option>Primary school completed</option>
+          <option>Some high school</option>
+          <option>High school diploma / GED</option>
+          <option>Some college</option>
+          <option>Associate degree</option>
+          <option>Bachelor's degree</option>
+          <option>Graduate / Professional degree</option>
+          <option>Prefer not to say</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Currently Experiencing Homelessness? <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-pill">
+            <input type="radio" name="homeless" value="No"> No — have stable housing
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="homeless" value="At risk"> At risk
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="homeless" value="Yes — shelter"> Yes — shelter
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="homeless" value="Yes — unsheltered"> Yes — unsheltered
+          </label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Do you have children or dependents?</label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="has_kids" value="No"> No</label>
+          <label class="radio-pill"><input type="radio" name="has_kids" value="Yes"> Yes</label>
+        </div>
+      </div>
+      <div class="field-group" id="kids-detail-wrap" style="display:none">
+        <label class="field-label">Number of children / ages (optional)</label>
+        <input type="text" name="kids_detail" placeholder="e.g. 2 children, ages 4 and 8">
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 2 — MENTAL HEALTH & PSYCHIATRIC HISTORY
+  ═══════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec2">
+    <div class="section-header">
+      <div class="section-icon">🧠</div>
+      <div>
+        <div class="section-title">Mental Health &amp; Psychiatric History</div>
+        <div class="section-desc">Current diagnoses and prior care history</div>
+      </div>
+      <span class="section-badge badge-required">Required</span>
+    </div>
+
+    <div class="sensitive-notice">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E65100" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      This section is strictly confidential and protected under HIPAA. Only your care team can access this information.
+    </div>
+
+    <div class="fields">
+      <div class="field-group field-full">
+        <label class="field-label">Current Mental Health Diagnosis / Diagnoses <span class="req">*</span></label>
+        <div class="check-group">
+          <label class="check-pill"><input type="checkbox" name="dx" value="Depression"> Major Depression</label>
+          <label class="check-pill"><input type="checkbox" name="dx" value="Anxiety"> Anxiety Disorder</label>
+          <label class="check-pill"><input type="checkbox" name="dx" value="Bipolar"> Bipolar Disorder</label>
+          <label class="check-pill"><input type="checkbox" name="dx" value="PTSD"> PTSD</label>
+          <label class="check-pill"><input type="checkbox" name="dx" value="Schizophrenia"> Schizophrenia</label>
+          <label class="check-pill"><input type="checkbox" name="dx" value="OCD"> OCD</label>
+          <label class="check-pill"><input type="checkbox" name="dx" value="ADHD"> ADHD</label>
+          <label class="check-pill"><input type="checkbox" name="dx" value="Borderline PD"> Borderline PD</label>
+          <label class="check-pill"><input type="checkbox" name="dx" value="Eating Disorder"> Eating Disorder</label>
+          <label class="check-pill"><input type="checkbox" name="dx" value="SUD"> Substance Use Disorder</label>
+          <label class="check-pill"><input type="checkbox" name="dx" value="Other"> Other / Unknown</label>
+        </div>
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Please describe your diagnosis in your own words (optional)</label>
+        <textarea name="dx_notes" placeholder="Any additional context, self-reported symptoms, or diagnosis history..."></textarea>
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Medical / Psychiatric History <span class="req">*</span></label>
+        <textarea name="psych_history" rows="4" placeholder="Previous hospitalizations, treatments, therapists, medications, diagnoses, relevant medical conditions..." required></textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Previous Mental Health Treatment?</label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="prior_tx" value="No"> No</label>
+          <label class="radio-pill"><input type="radio" name="prior_tx" value="Outpatient"> Yes — Outpatient</label>
+          <label class="radio-pill"><input type="radio" name="prior_tx" value="Inpatient"> Yes — Inpatient</label>
+          <label class="radio-pill"><input type="radio" name="prior_tx" value="Both"> Yes — Both</label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Currently seeing a psychiatrist or therapist?</label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="current_provider" value="No"> No</label>
+          <label class="radio-pill"><input type="radio" name="current_provider" value="Therapist"> Therapist</label>
+          <label class="radio-pill"><input type="radio" name="current_provider" value="Psychiatrist"> Psychiatrist</label>
+          <label class="radio-pill"><input type="radio" name="current_provider" value="Both"> Both</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 3 — SUBSTANCES & MEDICATIONS
+  ═══════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec3">
+    <div class="section-header">
+      <div class="section-icon">💊</div>
+      <div>
+        <div class="section-title">Substances &amp; Medications</div>
+        <div class="section-desc">Current and past substance use and prescription medications</div>
+      </div>
+      <span class="section-badge badge-required">Required</span>
+    </div>
+
+    <div class="fields">
+      <div class="field-group field-full">
+        <label class="field-label">Current Medications / Prescriptions</label>
+        <textarea name="current_meds" placeholder="Name of medication, dosage, prescribing provider (e.g. Sertraline 50mg — Dr. Smith)..."></textarea>
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Substances Used (check all that apply)</label>
+        <div class="check-group">
+          <label class="check-pill"><input type="checkbox" name="substance" value="Alcohol"> Alcohol</label>
+          <label class="check-pill"><input type="checkbox" name="substance" value="Marijuana"> Marijuana / Cannabis</label>
+          <label class="check-pill"><input type="checkbox" name="substance" value="Cocaine"> Cocaine / Crack</label>
+          <label class="check-pill"><input type="checkbox" name="substance" value="Heroin"> Heroin / Opioids</label>
+          <label class="check-pill"><input type="checkbox" name="substance" value="Meth"> Methamphetamine</label>
+          <label class="check-pill"><input type="checkbox" name="substance" value="Benzodiazepines"> Benzodiazepines</label>
+          <label class="check-pill"><input type="checkbox" name="substance" value="Stimulants"> Stimulants (Rx)</label>
+          <label class="check-pill"><input type="checkbox" name="substance" value="Hallucinogens"> Hallucinogens</label>
+          <label class="check-pill"><input type="checkbox" name="substance" value="None"> None</label>
+          <label class="check-pill"><input type="checkbox" name="substance" value="Other"> Other</label>
+        </div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">How long have you used the above substances?</label>
+        <input type="text" name="substance_duration" placeholder="e.g. Alcohol — 5 years, daily use">
+      </div>
+      <div class="field-group">
+        <label class="field-label">Last time of use</label>
+        <input type="text" name="substance_last_use" placeholder="e.g. Yesterday / 2 weeks ago / 6 months ago">
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Additional substance use notes</label>
+        <textarea name="substance_notes" placeholder="Withdrawal symptoms, past detox, treatment history, triggers..."></textarea>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 4 — LEGAL, SOCIAL & LIVING
+  ═══════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec4">
+    <div class="section-header">
+      <div class="section-icon">⚖️</div>
+      <div>
+        <div class="section-title">Legal, Social &amp; Living Conditions</div>
+        <div class="section-desc">Background details that help us plan appropriate care and support</div>
+      </div>
+      <span class="section-badge badge-required">Required</span>
+    </div>
+
+    <div class="fields">
+      <div class="field-group">
+        <label class="field-label">Prior Arrests or Legal History <span class="sensitive-tag">SENSITIVE</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="arrests" value="No"> No arrests</label>
+          <label class="radio-pill"><input type="radio" name="arrests" value="Yes — misdemeanor"> Yes — misdemeanor</label>
+          <label class="radio-pill"><input type="radio" name="arrests" value="Yes — felony"> Yes — felony</label>
+          <label class="radio-pill"><input type="radio" name="arrests" value="Prefer not"> Prefer not to say</label>
+        </div>
+        <div class="field-hint">This will not affect eligibility for services.</div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Legal status details (optional)</label>
+        <input type="text" name="legal_notes" placeholder="Probation, parole, pending charges, other...">
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Current Living Conditions <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-pill"><input type="radio" name="living" value="Own home/apt"> Own home / apartment</label>
+          <label class="radio-pill"><input type="radio" name="living" value="Renting"> Renting</label>
+          <label class="radio-pill"><input type="radio" name="living" value="With family"> Living with family</label>
+          <label class="radio-pill"><input type="radio" name="living" value="Group home"> Group home</label>
+          <label class="radio-pill"><input type="radio" name="living" value="Shelter"> Shelter</label>
+          <label class="radio-pill"><input type="radio" name="living" value="Transitional"> Transitional housing</label>
+          <label class="radio-pill"><input type="radio" name="living" value="Unsheltered"> Unsheltered</label>
+          <label class="radio-pill"><input type="radio" name="living" value="Other"> Other</label>
+        </div>
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Describe your current living situation (optional)</label>
+        <textarea name="living_notes" placeholder="Who do you live with? How stable is your housing? Any unsafe conditions?"></textarea>
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Social Support System</label>
+        <div class="check-group">
+          <label class="check-pill"><input type="checkbox" name="support" value="Family"> Family</label>
+          <label class="check-pill"><input type="checkbox" name="support" value="Friends"> Friends</label>
+          <label class="check-pill"><input type="checkbox" name="support" value="Spouse/Partner"> Spouse / Partner</label>
+          <label class="check-pill"><input type="checkbox" name="support" value="Church/Community"> Church / Community</label>
+          <label class="check-pill"><input type="checkbox" name="support" value="Peer support"> Peer support groups</label>
+          <label class="check-pill"><input type="checkbox" name="support" value="Case manager"> Case manager / Social worker</label>
+          <label class="check-pill"><input type="checkbox" name="support" value="None"> None / Isolated</label>
+        </div>
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Emergency Contact</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <input type="text" name="ec_name" placeholder="Full name">
+          <input type="tel" name="ec_phone" placeholder="Phone number">
+          <input type="text" name="ec_relationship" placeholder="Relationship">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 5 — DOCUMENTS & INSURANCE
+  ═══════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec5">
+    <div class="section-header">
+      <div class="section-icon">📎</div>
+      <div>
+        <div class="section-title">Documents &amp; Insurance</div>
+        <div class="section-desc">Upload required identification and insurance documents</div>
+      </div>
+      <span class="section-badge badge-required">Required</span>
+    </div>
+
+    <div class="fields">
+      <div class="field-group">
+        <label class="field-label">Insurance Card (front &amp; back) <span class="req">*</span></label>
+        <label class="upload-box" for="upload-insurance">
+          <input type="file" id="upload-insurance" name="insurance_card" accept="image/*,.pdf" multiple>
+          <div class="upload-icon">🏥</div>
+          <div class="upload-label">Upload insurance card(s)</div>
+          <div class="upload-hint">PDF or image — front and back</div>
+        </label>
+        <div class="field-hint" id="insurance-filename"></div>
+      </div>
+      <div class="field-group">
+        <label class="field-label">State ID or Driver's License <span class="req">*</span></label>
+        <label class="upload-box" for="upload-id">
+          <input type="file" id="upload-id" name="state_id" accept="image/*,.pdf">
+          <div class="upload-icon">🪪</div>
+          <div class="upload-label">Upload state ID / driver's license</div>
+          <div class="upload-hint">PDF or image — front side preferred</div>
+        </label>
+        <div class="field-hint" id="id-filename"></div>
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Insurance Provider</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <input type="text" name="insurance_provider" placeholder="Insurance company name">
+          <input type="text" name="insurance_member_id" placeholder="Member ID / Policy number">
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="field-group">
+      <label class="field-label">Live Photo Verification <span class="req">*</span></label>
+      <div class="field-hint" style="margin-bottom:8px">Please take a live photo to verify your identity. You may also upload a recent photo.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div>
+          <button type="button" class="camera-btn" id="camera-btn" onclick="startCamera()">
+            📷 &nbsp;Take Live Photo
+          </button>
+          <video id="camera-feed" autoplay muted></video>
+          <button type="button" class="camera-btn" id="snap-btn" onclick="snapPhoto()" style="display:none;background:var(--accent);color:#fff;border-color:var(--accent)">
+            ✅ Capture Photo
+          </button>
+          <canvas id="photo-canvas" style="display:none"></canvas>
+          <img id="photo-preview" class="photo-preview" alt="Captured photo">
+        </div>
+        <div>
+          <label class="upload-box" for="upload-photo">
+            <input type="file" id="upload-photo" name="photo_upload" accept="image/*">
+            <div class="upload-icon">🖼️</div>
+            <div class="upload-label">Or upload a recent photo</div>
+            <div class="upload-hint">JPG / PNG, clearly showing your face</div>
+          </label>
+          <div class="field-hint" id="photo-filename"></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="field-group">
+      <label class="field-label">Additional Documents (optional)</label>
+      <label class="upload-box" for="upload-docs">
+        <input type="file" id="upload-docs" name="additional_docs" accept="image/*,.pdf,.doc,.docx" multiple>
+        <div class="upload-icon">📁</div>
+        <div class="upload-label">Upload any additional records</div>
+        <div class="upload-hint">Prior discharge summaries, therapy notes, referral letters...</div>
+      </label>
+      <div class="field-hint" id="docs-filename"></div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 6 — PATIENT GOALS & NEEDS
+  ═══════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec6">
+    <div class="section-header">
+      <div class="section-icon">🎯</div>
+      <div>
+        <div class="section-title">Goals &amp; What You Need</div>
+        <div class="section-desc">Tell us what you're hoping to achieve and how we can help</div>
+      </div>
+      <span class="section-badge badge-required">Required</span>
+    </div>
+
+    <div class="fields">
+      <div class="field-group field-full">
+        <label class="field-label">What are you hoping to achieve through treatment? <span class="req">*</span></label>
+        <textarea name="goals" rows="4" placeholder="Your personal goals — what does recovery or wellness mean to you?" required></textarea>
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">What types of assistance or services do you need?</label>
+        <div class="check-group">
+          <label class="check-pill"><input type="checkbox" name="needs" value="Individual therapy"> Individual therapy</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Group therapy"> Group therapy</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Medication management"> Medication management</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Substance counseling"> Substance use counseling</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Housing assistance"> Housing assistance</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Employment support"> Employment support</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Case management"> Case management</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Family therapy"> Family therapy</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Crisis services"> Crisis services</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Peer support"> Peer support</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Transportation"> Transportation assistance</label>
+          <label class="check-pill"><input type="checkbox" name="needs" value="Childcare"> Childcare support</label>
+        </div>
+      </div>
+      <div class="field-group field-full">
+        <label class="field-label">Anything else you'd like the care team to know?</label>
+        <textarea name="additional_notes" placeholder="Your strengths, preferences, cultural considerations, barriers to care, or anything else..."></textarea>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 8 — CARE REGION & TEAM (RCC View)
+  ═══════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec8">
+    <div class="section-header">
+      <div class="section-icon">🗺️</div>
+      <div>
+        <div class="section-title">Care Region Assignment</div>
+        <div class="section-desc">Select the patient's care region — RCC can verify team assignment below</div>
+      </div>
+      <span class="section-badge badge-auto">RCC / Admin</span>
+    </div>
+
+    <div class="care-region-grid" id="region-grid">
+      <label class="region-card" onclick="selectRegion(this,'R01','Team Alpha')">
+        <input type="radio" name="care_region" value="R01">
+        <div class="region-label">Region 1 — North</div>
+        <div class="region-id">ID: R01</div>
+        <div class="region-team">Team Alpha</div>
+      </label>
+      <label class="region-card" onclick="selectRegion(this,'R02','Team Beta')">
+        <input type="radio" name="care_region" value="R02">
+        <div class="region-label">Region 2 — South</div>
+        <div class="region-id">ID: R02</div>
+        <div class="region-team">Team Beta</div>
+      </label>
+      <label class="region-card" onclick="selectRegion(this,'R03','Team Gamma')">
+        <input type="radio" name="care_region" value="R03">
+        <div class="region-label">Region 3 — East</div>
+        <div class="region-id">ID: R03</div>
+        <div class="region-team">Team Gamma</div>
+      </label>
+      <label class="region-card" onclick="selectRegion(this,'R04','Team Delta')">
+        <input type="radio" name="care_region" value="R04">
+        <div class="region-label">Region 4 — West</div>
+        <div class="region-id">ID: R04</div>
+        <div class="region-team">Team Delta</div>
+      </label>
+      <label class="region-card" onclick="selectRegion(this,'R05','Team Epsilon')">
+        <input type="radio" name="care_region" value="R05">
+        <div class="region-label">Region 5 — Central</div>
+        <div class="region-id">ID: R05</div>
+        <div class="region-team">Team Epsilon</div>
+      </label>
+      <label class="region-card" onclick="selectRegion(this,'R06','Team Zeta')">
+        <input type="radio" name="care_region" value="R06">
+        <div class="region-label">Region 6 — Metro</div>
+        <div class="region-id">ID: R06</div>
+        <div class="region-team">Team Zeta</div>
+      </label>
+    </div>
+
+    <div class="team-checker" id="team-checker" style="display:none">
+      <div>
+        <div class="team-checker-label">Assigned Region ID</div>
+        <div class="team-checker-val" id="tc-region">—</div>
+      </div>
+      <div style="border-left:1px solid #B5D4F4;height:36px;margin:0 8px"></div>
+      <div>
+        <div class="team-checker-label">Team Assignment</div>
+        <div class="team-checker-val" id="tc-team">—</div>
+      </div>
+      <div style="border-left:1px solid #B5D4F4;height:36px;margin:0 8px"></div>
+      <div>
+        <div class="team-checker-label">Submission Reference</div>
+        <div class="team-checker-val" id="tc-subid">—</div>
+      </div>
+    </div>
+
+    <div class="mailbox-notice" style="margin-top:14px">
+      📧 &nbsp;Upon submission, a copy of this intake record will be automatically sent to the <strong>shared care team mailbox</strong>: <strong>intake-submissions@behavioralhealth.org</strong> — and to the assigned regional team mailbox.
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 9 — CERTIFICATION & SUBMIT
+  ═══════════════════════════════════════════════════ -->
+  <div class="section-card" id="sec9">
+    <div class="section-header">
+      <div class="section-icon">✅</div>
+      <div>
+        <div class="section-title">Certification &amp; Submission</div>
+        <div class="section-desc">Please review and certify the accuracy of this application</div>
+      </div>
+    </div>
+
+    <div class="certify-box">
+      <label class="certify-check">
+        <input type="checkbox" name="certify_accurate" required>
+        <div class="certify-text">
+          <strong>I certify that all information provided in this intake form is true and accurate to the best of my knowledge.</strong>
+          I understand that providing false or misleading information may affect my eligibility for services and could have legal consequences.
+        </div>
+      </label>
+    </div>
+
+    <div class="certify-box" style="margin-top:10px">
+      <label class="certify-check">
+        <input type="checkbox" name="certify_hipaa" required>
+        <div class="certify-text">
+          I consent to the <strong>collection, storage, and use of my health information</strong> by this organization in accordance with HIPAA regulations and as described in the Notice of Privacy Practices I have received or reviewed.
+        </div>
+      </label>
+    </div>
+
+    <div class="certify-box" style="margin-top:10px">
+      <label class="certify-check">
+        <input type="checkbox" name="certify_treatment" required>
+        <div class="certify-text">
+          I <strong>voluntarily consent to evaluation and treatment</strong> at this behavioral health facility, and understand I may withdraw this consent at any time by notifying my care team in writing.
+        </div>
+      </label>
+    </div>
+
+    <div style="margin-top:20px">
+      <label class="field-label">Signature (type your full legal name) <span class="req">*</span></label>
+      <input type="text" name="signature" placeholder="Type your full name as your electronic signature" style="font-style:italic;font-size:16px" required>
+      <div class="field-hint" style="margin-top:4px">By typing your name you agree this constitutes a legally binding electronic signature.</div>
+    </div>
+    <div style="margin-top:12px">
+      <label class="field-label">Date of Signature</label>
+      <input type="date" name="signature_date" id="signature_date">
+    </div>
+
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" id="submit-btn">
+        🚀 &nbsp;Submit Intake Form
+      </button>
+      <div class="submit-note">
+        Your submission will be sent to the shared mailbox and your assigned care team. You will receive a confirmation with your Submission ID.
+      </div>
+    </div>
+
+    <!-- SUCCESS MESSAGE -->
+    <div id="success-msg" style="display:none;margin-top:24px;padding:20px;background:#F0FBF6;border:1px solid var(--teal-200);border-radius:12px;text-align:center">
+      <div style="font-size:32px;margin-bottom:8px">🎉</div>
+      <div style="font-family:var(--serif);font-size:20px;margin-bottom:6px">Thank you — your intake form has been submitted!</div>
+      <div style="font-size:13px;color:var(--muted)">Your Submission ID is <strong id="confirm-subid" style="color:var(--accent)"></strong>. A confirmation has been sent to the shared mailbox and your care team. A staff member will contact you within 1 business day.</div>
+    </div>
+  </div>
+
+  </form>
+
+</main>
+
+<script>
+// ─── Generate Submission ID ─────────────────────────────────────────
+function genSubId() {
+  const d = new Date();
+  const yy = d.getFullYear().toString().slice(-2);
+  const mm = String(d.getMonth()+1).padStart(2,'0');
+  const dd = String(d.getDate()).padStart(2,'0');
+  const rand = Math.floor(1000 + Math.random() * 9000);
+  return `BHS-${yy}${mm}${dd}-${rand}`;
+}
+
+const SUB_ID = genSubId();
+
+document.getElementById('sub-id-header').textContent = SUB_ID;
+document.getElementById('sub-id-display').textContent = SUB_ID;
+document.getElementById('tc-subid').textContent = SUB_ID;
+document.getElementById('confirm-subid').textContent = SUB_ID;
+
+const today = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+document.getElementById('form-date').textContent = today;
+document.getElementById('signature_date').value = new Date().toISOString().split('T')[0];
+
+// ─── Progress ──────────────────────────────────────────────────────
+const sections = ['sec1','sec2','sec3','sec4','sec5','sec6','sec9'];
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      const idx = sections.indexOf(e.target.id);
+      if(idx >= 0) updateProgress(idx);
+    }
+  });
+}, {threshold: 0.2});
+sections.forEach(id => { const el = document.getElementById(id); if(el) observer.observe(el); });
+
+function updateProgress(activeIdx) {
+  for(let i=0;i<7;i++) {
+    const el = document.getElementById('ps'+(i+1));
+    if(!el) return;
+    el.classList.remove('done','active');
+    if(i < activeIdx) el.classList.add('done');
+    else if(i === activeIdx) el.classList.add('active');
+  }
+}
+
+// ─── SSN Formatter ────────────────────────────────────────────────
+function formatSSN(input) {
+  let v = input.value.replace(/\D/g,'').substring(0,9);
+  if(v.length >= 4) v = v.slice(0,3)+'-'+v.slice(3);
+  if(v.length >= 7) v = v.slice(0,6)+'-'+v.slice(6);
+  input.value = v;
+}
+
+// ─── Kids toggle ──────────────────────────────────────────────────
+document.querySelectorAll('input[name="has_kids"]').forEach(r => {
+  r.addEventListener('change', () => {
+    const wrap = document.getElementById('kids-detail-wrap');
+    wrap.style.display = r.value === 'Yes' ? 'flex' : 'none';
+  });
+});
+
+// ─── File upload labels ───────────────────────────────────────────
+function bindFileLabel(inputId, labelId) {
+  document.getElementById(inputId).addEventListener('change', function() {
+    const names = Array.from(this.files).map(f=>f.name).join(', ');
+    document.getElementById(labelId).textContent = names ? '📎 '+names : '';
+  });
+}
+bindFileLabel('upload-insurance','insurance-filename');
+bindFileLabel('upload-id','id-filename');
+bindFileLabel('upload-photo','photo-filename');
+bindFileLabel('upload-docs','docs-filename');
+
+// ─── Care Region ──────────────────────────────────────────────────
+function selectRegion(card, regionId, teamName) {
+  document.querySelectorAll('.region-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  const checker = document.getElementById('team-checker');
+  checker.style.display = 'flex';
+  document.getElementById('tc-region').textContent = regionId;
+  document.getElementById('tc-team').textContent = teamName;
+  document.getElementById('team-id-header').textContent = teamName;
+  document.getElementById('care-team-display').textContent = regionId + ' / ' + teamName;
+}
+
+// ─── Camera ──────────────────────────────────────────────────────
+let stream = null;
+async function startCamera() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({video:true});
+    const video = document.getElementById('camera-feed');
+    video.srcObject = stream;
+    video.style.display = 'block';
+    document.getElementById('camera-btn').style.display = 'none';
+    document.getElementById('snap-btn').style.display = 'flex';
+  } catch(e) {
+    alert('Camera not available. Please upload a photo instead.');
+  }
+}
+
+function snapPhoto() {
+  const video = document.getElementById('camera-feed');
+  const canvas = document.getElementById('photo-canvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  const img = document.getElementById('photo-preview');
+  img.src = canvas.toDataURL('image/jpeg');
+  img.style.display = 'block';
+  if(stream) { stream.getTracks().forEach(t=>t.stop()); stream=null; }
+  video.style.display = 'none';
+  document.getElementById('snap-btn').style.display = 'none';
+  document.getElementById('camera-btn').style.display = 'flex';
+  document.getElementById('camera-btn').textContent = '🔄 Retake Photo';
+}
+
+// ─── Submit ──────────────────────────────────────────────────────
+document.getElementById('intake-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = '⏳  Submitting…';
+  btn.disabled = true;
+
+  // Collect form data
+  const fd = new FormData(this);
+  const payload = {};
+  fd.forEach((v,k) => {
+    if(payload[k]) {
+      if(!Array.isArray(payload[k])) payload[k]=[payload[k]];
+      payload[k].push(v);
+    } else { payload[k]=v; }
+  });
+  payload.submission_id = SUB_ID;
+  payload.submission_timestamp = new Date().toISOString();
+
+  // Simulate Power Automate HTTP trigger call
+  await new Promise(r => setTimeout(r, 1800));
+
+  // Show success
+  btn.style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+  document.getElementById('confirm-subid').textContent = SUB_ID;
+
+  // Update status badge
+  document.querySelector('.sid-status').textContent = '✅ Submitted';
+  document.querySelector('.sid-status').style.background = '#E1F5EE';
+  document.querySelector('.sid-status').style.color = '#0F6E56';
+});
+</script>
+</body>
+</html>
